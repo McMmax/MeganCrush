@@ -1,0 +1,144 @@
+{
+  "$schema": "https://charm.land/crush.json",
+
+  "lsp": {
+    "jdtls": {
+      "command": "~/.local/bin/jdtls",
+      "filetypes": ["java"],
+      "root_markers": ["pom.xml", "build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts", ".git"],
+      "env": {
+        "JAVA_HOME": "~/.local/lib/jvm/jdk-25.0.2"
+      },
+      "timeout": 60,
+      "init_options": {
+        "settings": {
+          "java": {
+            "configuration": {
+              "runtimes": [
+                {
+                  "name": "JavaSE-25",
+                  "path": "~/.local/lib/jvm/jdk-25.0.2",
+                  "default": true
+                }
+              ]
+            },
+            "compile": {
+              "nullAnalysis": {
+                "mode": "automatic"
+              }
+            }
+          }
+        }
+      }
+    },
+    "kotlin-language-server": {
+      "command": "~/.local/bin/kotlin-language-server",
+      "filetypes": ["kotlin", "kt", "kts"],
+      "root_markers": ["build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts", "pom.xml", ".git"],
+      "timeout": 60
+    },
+    "pyright": {
+      "command": "~/.local/bin/pyright-langserver",
+      "args": ["--stdio"],
+      "filetypes": ["python", "py"],
+      "root_markers": ["pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "pyrightconfig.json", ".git"],
+      "timeout": 30
+    },
+    "rust-analyzer": {
+      "command": "rust-analyzer",
+      "filetypes": ["rust", "rs"],
+      "root_markers": ["Cargo.toml", "Cargo.lock", ".git"],
+      "timeout": 60
+    },
+    "clangd": {
+      "command": "~/.local/bin/clangd",
+      "args": ["--background-index", "--clang-tidy"],
+      "filetypes": ["c", "cpp", "h", "hpp", "cc", "cxx"],
+      "root_markers": ["compile_commands.json", "CMakeLists.txt", "Makefile", ".clangd", ".git"],
+      "timeout": 30
+    },
+    "typescript-language-server": {
+      "command": "~/.local/bin/typescript-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["typescript", "javascript", "ts", "tsx", "js", "jsx"],
+      "root_markers": ["tsconfig.json", "jsconfig.json", "package.json", ".git"],
+      "timeout": 30
+    },
+    "vscode-html-language-server": {
+      "command": "~/.local/bin/vscode-html-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["html", "htm"],
+      "root_markers": ["package.json", ".git"],
+      "timeout": 15
+    },
+    "vscode-css-language-server": {
+      "command": "~/.local/bin/vscode-css-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["css", "scss", "less"],
+      "root_markers": ["package.json", ".git"],
+      "timeout": 15
+    },
+    "vscode-json-language-server": {
+      "command": "~/.local/bin/vscode-json-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["json", "jsonc"],
+      "root_markers": ["package.json", ".git"],
+      "timeout": 15
+    }
+  },
+
+  "mcp": {
+    "claude-code": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["~/.config/crush/mcp-servers/claude-code-mcp.js"],
+      "timeout": 300,
+      "disabled": false
+    },
+    "gemini": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["~/.config/crush/mcp-servers/gemini-mcp.js"],
+      "timeout": 300,
+      "disabled": false
+    },
+    "codex": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["~/.config/crush/mcp-servers/codex-mcp.js"],
+      "timeout": 300,
+      "disabled": false
+    },
+    "sessions": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["~/.config/crush/mcp-servers/session-mcp.js"],
+      "timeout": 30,
+      "disabled": false
+    }
+  },
+
+  "permissions": {
+    "allowed_tools": [
+      "view",
+      "ls",
+      "grep",
+      "glob",
+      "mcp_gemini_gemini",
+      "mcp_codex_codex",
+      "mcp_sessions_sessions_list",
+      "mcp_sessions_sessions_get",
+      "mcp_sessions_sessions_send_message",
+      "mcp_sessions_sessions_get_messages",
+      "mcp_sessions_sessions_update_task",
+      "mcp_sessions_sessions_daemon_status"
+    ]
+  },
+
+  "options": {
+    "initialize_as": "AGENTS.md",
+    "skills_paths": [
+      "~/.config/crush/skills"
+    ]
+  }
+}
