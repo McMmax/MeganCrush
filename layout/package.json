@@ -1,0 +1,14 @@
+{
+  "name": "megan-mcp-servers",
+  "version": "4.0.0",
+  "description": "Megan's MCP server wrappers — spawns claude, gemini, codex CLIs (no SDKs)",
+  "main": "mcp-servers/",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {},
+  "scripts": {
+    "test": "node -e 'console.log(\"MCP wrappers ready. Run: bash setup.sh\")'"
+  }
+}

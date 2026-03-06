@@ -1,0 +1,16 @@
+{
+  "name": "megan-session-daemon",
+  "version": "1.0.0",
+  "description": "Session registry daemon for multi-instance Crush/Megan coordination",
+  "main": "daemon.js",
+  "bin": {
+    "megan-daemon": "./daemon.js",
+    "megan-sessions": "./cli.js"
+  },
+  "scripts": {
+    "start": "node daemon.js",
+    "cli": "node cli.js"
+  },
+  "dependencies": {},
+  "license": "MIT"
+}
