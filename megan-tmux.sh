@@ -52,15 +52,20 @@ show_status() {
     if [ -f "$state_file" ]; then
       echo "[$provider]"
       # Extract key fields with simple tools (no jq dependency)
-      node -e "
-        const d = JSON.parse(require('fs').readFileSync('$state_file','utf-8'));
-        console.log('  Auth:   ' + d.auth.state);
-        console.log('  Model:  ' + (d.currentModel || 'none'));
-        console.log('  Calls:  ' + d.session.totalCalls);
-        console.log('  Errors: ' + d.session.totalErrors);
-        if (d.session.totalLatencyMs > 0)
-          console.log('  Avg ms: ' + Math.round(d.session.totalLatencyMs / Math.max(d.session.totalCalls,1)));
-      " 2>/dev/null || echo "  (unable to parse state)"
+      python3 -c "
+import json
+with open('$state_file') as f:
+    d = json.load(f)
+print('  Auth:   ' + d.get('auth', {}).get('state', 'unknown'))
+print('  Model:  ' + (d.get('currentModel') or 'none'))
+sess = d.get('session', {})
+calls = sess.get('totalCalls', 0)
+print(f'  Calls:  {calls}')
+print(f'  Errors: {sess.get(\"totalErrors\", 0)}')
+lat = sess.get('totalLatencyMs', 0)
+if lat > 0:
+    print(f'  Avg ms: {round(lat / max(calls, 1))}')
+" 2>/dev/null || echo "  (unable to parse state)"
       echo ""
     else
       echo "[$provider] No state file"

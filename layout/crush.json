@@ -90,29 +90,29 @@
   "mcp": {
     "claude-code": {
       "type": "stdio",
-      "command": "node",
-      "args": ["~/.config/crush/mcp-servers/claude-code-mcp.js"],
+      "command": "python3",
+      "args": ["-u", "~/.config/crush/mcp-servers/claude_code_mcp.py"],
       "timeout": 300,
       "disabled": false
     },
     "gemini": {
       "type": "stdio",
-      "command": "node",
-      "args": ["~/.config/crush/mcp-servers/gemini-mcp.js"],
+      "command": "python3",
+      "args": ["-u", "~/.config/crush/mcp-servers/gemini_mcp.py"],
       "timeout": 300,
       "disabled": false
     },
     "codex": {
       "type": "stdio",
-      "command": "node",
-      "args": ["~/.config/crush/mcp-servers/codex-mcp.js"],
+      "command": "python3",
+      "args": ["-u", "~/.config/crush/mcp-servers/codex_mcp.py"],
       "timeout": 300,
       "disabled": false
     },
     "sessions": {
       "type": "stdio",
-      "command": "node",
-      "args": ["~/.config/crush/mcp-servers/session-mcp.js"],
+      "command": "python3",
+      "args": ["-u", "~/.config/crush/mcp-servers/session_mcp.py"],
       "timeout": 30,
       "disabled": false
     }

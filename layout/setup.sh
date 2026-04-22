@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# setup.sh — Install MCP server wrappers for Megan (CLI-only, no SDKs)
+# setup.sh — Install MCP server wrappers for Megan (Python CLI-only, no SDKs)
 # Run from the Megan project root: bash layout/setup.sh
 
 set -e
@@ -11,12 +11,12 @@ MCP_DIR="$CRUSH_CONFIG_DIR/mcp-servers"
 echo "==> Creating MCP servers directory at $MCP_DIR"
 mkdir -p "$MCP_DIR"
 
-echo "==> Copying MCP server scripts (CLI wrappers)"
-cp "$SCRIPT_DIR/mcp-servers/claude-code-mcp.js" "$MCP_DIR/"
-cp "$SCRIPT_DIR/mcp-servers/gemini-mcp.js" "$MCP_DIR/"
-cp "$SCRIPT_DIR/mcp-servers/codex-mcp.js" "$MCP_DIR/"
-cp "$SCRIPT_DIR/mcp-servers/provider-state.js" "$MCP_DIR/"
-cp "$SCRIPT_DIR/mcp-servers/dashboard-log.js" "$MCP_DIR/"
+echo "==> Copying MCP server scripts (Python CLI wrappers)"
+cp "$SCRIPT_DIR/mcp-servers/claude_code_mcp.py" "$MCP_DIR/"
+cp "$SCRIPT_DIR/mcp-servers/gemini_mcp.py" "$MCP_DIR/"
+cp "$SCRIPT_DIR/mcp-servers/codex_mcp.py" "$MCP_DIR/"
+cp "$SCRIPT_DIR/mcp-servers/provider_state.py" "$MCP_DIR/"
+cp "$SCRIPT_DIR/mcp-servers/dashboard_log.py" "$MCP_DIR/"
 
 echo "==> Copying agent prompts"
 PROMPTS_DIR="$CRUSH_CONFIG_DIR/agent-prompts"
@@ -31,10 +31,10 @@ fi
 echo "==> Copying session daemon and MCP server"
 SESSION_SRC="$SCRIPT_DIR/../session-daemon"
 if [ -d "$SESSION_SRC" ]; then
-  cp "$SESSION_SRC/daemon.js" "$MCP_DIR/"
-  cp "$SESSION_SRC/session-client.js" "$MCP_DIR/"
-  cp "$SESSION_SRC/session-mcp.js" "$MCP_DIR/"
-  cp "$SESSION_SRC/cli.js" "$MCP_DIR/megan-sessions.js"
+  cp "$SESSION_SRC/daemon.py" "$MCP_DIR/"
+  cp "$SESSION_SRC/session_client.py" "$MCP_DIR/"
+  cp "$SESSION_SRC/session_mcp.py" "$MCP_DIR/"
+  cp "$SESSION_SRC/cli.py" "$MCP_DIR/megan-sessions.py"
   echo "    Session daemon and MCP server installed"
 
   SESSION_DIR="$CRUSH_CONFIG_DIR/sessions"
@@ -45,7 +45,7 @@ if [ -d "$SESSION_SRC" ]; then
     mkdir -p "$HOME/.local/bin"
     cat > "$HOME/.local/bin/megan-sessions" << 'CLIEOF'
 #!/usr/bin/env bash
-exec node ~/.config/crush/mcp-servers/megan-sessions.js "$@"
+exec python3 ~/.config/crush/mcp-servers/megan-sessions.py "$@"
 CLIEOF
     chmod +x "$HOME/.local/bin/megan-sessions"
     echo "    CLI installed: ~/.local/bin/megan-sessions"
@@ -54,7 +54,7 @@ CLIEOF
   if [ ! -f "$HOME/.local/bin/megan-daemon" ]; then
     cat > "$HOME/.local/bin/megan-daemon" << 'DMNEOF'
 #!/usr/bin/env bash
-exec node ~/.config/crush/mcp-servers/daemon.js "$@"
+exec python3 ~/.config/crush/mcp-servers/daemon.py "$@"
 DMNEOF
     chmod +x "$HOME/.local/bin/megan-daemon"
     echo "    Daemon CLI installed: ~/.local/bin/megan-daemon"
@@ -113,7 +113,7 @@ check_cli() {
 }
 
 check_cli "crush"    "brew install charmbracelet/tap/crush"
-check_cli "node"     "Install Node.js from https://nodejs.org"
+check_cli "python3"  "Install Python 3.10+ from https://www.python.org"
 check_cli "claude"   "npm install -g @anthropic-ai/cli"
 check_cli "gemini"   "npm install -g @google/gemini-cli"
 check_cli "codex"    "npm install -g @openai/codex"

@@ -10,7 +10,7 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPAIR_SCRIPT="$SCRIPT_DIR/crush-repair.py"
-DAEMON_SCRIPT="$SCRIPT_DIR/session-daemon/daemon.js"
+DAEMON_SCRIPT="$SCRIPT_DIR/session-daemon/daemon.py"
 SESSION_DIR="$HOME/.config/crush/sessions"
 PID_FILE="$SESSION_DIR/daemon.pid"
 CRUSH_BIN="/usr/local/bin/crush"
@@ -28,7 +28,7 @@ if [[ -f "$DAEMON_SCRIPT" ]]; then
         fi
     fi
     if [[ "$daemon_running" == "false" ]]; then
-        node "$DAEMON_SCRIPT" &>/dev/null &
+        python3 "$DAEMON_SCRIPT" &>/dev/null &
         disown
         sleep 0.3
     fi

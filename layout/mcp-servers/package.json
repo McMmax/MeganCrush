@@ -1,6 +1,0 @@
-{
-  "name": "megan-mcp-servers",
-  "version": "4.0.0",
-  "description": "CLI-based MCP server wrappers for Megan (no SDK dependencies)",
-  "type": "commonjs"
-}
